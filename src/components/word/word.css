@@ -1,0 +1,11 @@
+.letter {
+    width: 80%;
+    max-width: 80%;
+    height: 10%;
+    max-height: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 3px;
+}
