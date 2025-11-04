@@ -11,6 +11,7 @@ export default function MainContainer(props) {
           letters={props.letters}
           currentWordIndex={props.currentWordIndex}
           lettersData={props.lettersData}
+          length={props.length}
         />
       ))}
     </div>

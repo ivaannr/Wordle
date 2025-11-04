@@ -46,6 +46,10 @@ export default class Stack {
         return this.items;
     }
 
+    get(index) {
+        return this.items[index];
+    }
+
     isEmpty() { return this.items.length === 0; }
 
     size() { return this.items.length; }

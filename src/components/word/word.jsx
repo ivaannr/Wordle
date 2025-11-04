@@ -9,7 +9,7 @@ export default function Word(props) {
 
   return (
     <div className="letter">
-      {Array.from({ length: 5 }).map((_, i) => {
+      {Array.from({ length: props.length }).map((_, i) => {
         const cellData = isActive ? lettersData[i] : { state: "empty", letter: "" };
         return (
           <Cell

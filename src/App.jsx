@@ -1,6 +1,6 @@
 import './App.css'
 import { useState, useEffect } from 'react'
-import { fetchWord, checkWordMatches, replaceAccents } from './helper'
+import { fetchWord, getWordMatches, replaceAccents } from './helper'
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
 import Stack from './Stack'
@@ -10,12 +10,12 @@ import MainContainer from './components/main-container/main-container'
 import Keyboard from './components/keyboard/keyboard'
 
 export default function App() {
+  const [length, setLength] = useState(5);
   const [lettersData, setLettersData] = useState([])
   const [currentWordIndex, setCurrentWordIndex] = useState(-1)
   const [letters, setLetters] = useState(new Stack())
   const [word, setWord] = useState("");
-
-
+  const [matches, setMatches] = useState([]);
 
   useEffect(() => {
     const fetchWordAsync = async () => {
@@ -26,7 +26,6 @@ export default function App() {
     fetchWordAsync();
   }, []);
 
-  let result;
 
   useEffect(() => {
 
@@ -35,8 +34,8 @@ export default function App() {
     console.log("Letters cambió: ", letters.print());
     const formattedWord = replaceAccents(word.toUpperCase());
 
-    result = checkWordMatches(formattedWord, letters);
-    console.log("Resultado:", result)
+    setMatches(getWordMatches(formattedWord, letters));
+    console.log("Resultado:", matches)
 
   }, [letters]);
 
@@ -51,8 +50,9 @@ export default function App() {
         letters={letters}
         setLetters={setLetters}
         currentWordIndex={currentWordIndex}
-        matches={result}
+        matches={matches}
         lettersData={lettersData}
+        length={length}
       />
 
       <Keyboard
@@ -61,6 +61,8 @@ export default function App() {
         currentWordIndex={currentWordIndex}
         setCurrentWordIndex={setCurrentWordIndex}
         setLettersData={setLettersData}
+        length={length}
+        matches={matches}
       />
 
       <Footer />

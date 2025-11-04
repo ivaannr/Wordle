@@ -1,11 +1,9 @@
 import React from "react";
 
-let seenLetters = []
-
 function getColor(state) {
     switch (state) {
         case "correct": return "#3fbf00";
-        case "misplaced": return "#ff9300";
+        case "contains": return "#ff9300";
         case "miss": return "#323232ff";
         case "empty": return "#202020ff";
     };
@@ -34,41 +32,72 @@ function checkWordMatches(word, letters) {
                 )
             );
 
-            seenLetters.push(letter);
-
         } else {
             result.push(
                 createRecord(
                     letter, letters.index(letter), "miss"
                 )
             );
+            missedLetters.add(letter);
         }
     });
-
-    seenLetters = [];
 
     return result
 }
 
-function getLetterState(letter, letters, word) {
+function getWordMatches(word, letters) {
+    const wordArray = word.split("");
+    const result = [];
+    const matches = createMatches(wordArray, letters);
 
-    let state = "contains";
+    letters.toArray().forEach((letter, index) => {
 
-    const letterCount = getLetterCount(letters.toArray());
-
-    if (letterCount <= 1) {
-        if (letters.index(letter) === word.indexOf(letter)) {
-            return "correct";
+        if (letters.get(index) === matches.get(index)) {
+            result.push(
+                createRecord(
+                    letter,
+                    letters.index(letter),
+                    "correct"
+                )
+            );
         }
-    } else {
-        if (seenLetters.includes(letter)) {
-            return "miss";
-        }
-    }
 
-    return state;
+        const hasLetter = Array.from(matches.values()).includes(letter);
+
+        if (hasLetter && letter !== matches.get(index)) {
+            result.push(
+                createRecord(
+                    letter,
+                    letters.index(letter),
+                    "contains"
+                )
+            );
+        }
+
+        if (!hasLetter) {
+            result.push(
+                createRecord(
+                    letter,
+                    letters.index(letter),
+                    "miss"
+                )
+            );
+        }
+    });
+
+    return result;
 }
 
+
+function createMatches(word, letters) {
+    const matches = new Map();
+
+    for (let i = 0; i < letters.size(); i++) {
+        matches.set(i, word[i]);
+    }
+
+    return matches;
+}
 
 function createRecord(letter, index, state) {
     return { letter, index, state };
@@ -115,16 +144,16 @@ function createLettersData(letters, matches) {
     const lettersArray = letters.toArray();
     const data = [];
 
-    lettersArray.forEach(() => {
+    for (const i in lettersArray) {
         data.push(
             createDataRecord(
-                "L",
-                "correct"
+                matches[i].letter,
+                matches[i].state
             )
         );
-    });
+    }
 
     return data;
 }
 
-export { fetchWord, getColor, checkWordMatches, replaceAccents, createLettersData }
+export { fetchWord, getColor, getWordMatches, replaceAccents, createLettersData }

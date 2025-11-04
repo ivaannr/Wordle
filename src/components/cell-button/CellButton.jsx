@@ -15,7 +15,7 @@ export default function ButtonCell(props) {
 
         if (props.submitWord) {
 
-            if (props.letters.size() < 5) {
+            if (props.letters.size() < props.length) {
                 toast.warn("You may fill the word before submitting it.");
                 return;
             }
@@ -23,7 +23,6 @@ export default function ButtonCell(props) {
             const emptyStack = new Stack();
 
             props.setCurrentWordIndex(props.currentWordIndex + 1);
-            props.setLetters(emptyStack);
 
             props.setLettersData (
                 createLettersData (
@@ -32,12 +31,14 @@ export default function ButtonCell(props) {
                 )
             );
 
+            props.setLetters(emptyStack);
+
             return;
         }
 
         if (!remove) {
 
-            if (newStack.size() === 5) {
+            if (newStack.size() === props.length) {
                 toast.warn("You can't add more letters.");
                 return;
             }
