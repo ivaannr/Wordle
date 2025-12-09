@@ -60,6 +60,18 @@ export default function App() {
 
   // }, []);
 
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     console.log(event.key);
+  //   };
+
+  //   window.addEventListener("keydown", handleKeyDown);
+
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, []);
+
   useEffect(() => {
 
     const formattedWord = replaceAccents(word.toUpperCase());

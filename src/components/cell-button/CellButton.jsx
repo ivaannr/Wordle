@@ -1,17 +1,10 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import Cell from "../letter-cell/cell";
 import './CellButton.css'
 import { toast } from "react-toastify";
 import { createLettersData } from "../../helper";
 
-let indexmap = new Map([
-    [0, { state: "empty", letter: "" }],
-    [1, { state: "empty", letter: "" }],
-    [2, { state: "empty", letter: "" }],
-    [3, { state: "empty", letter: "" }],
-    [4, { state: "empty", letter: "" }],
-    [5, { state: "empty", letter: "" }]
-])
+
 let previousLettersMap = new Map([]);
 Array.from({ length: 5 }).forEach((_, i) => {
     previousLettersMap.set(i, "")
@@ -37,6 +30,28 @@ export default function ButtonCell({
     previousWords,
     setPreviousWords
 }) {
+    const buttonRef = useRef();
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+
+            let key = e.key.toUpperCase();
+
+            switch (key) {
+                case "Enter": key = "✓"; break;
+                case "Backspace": key = "⬅"; break;
+            };
+
+            if (e.key.toUpperCase() === letter.toUpperCase()) {
+                buttonRef.current.click();
+                console.log(e.key);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [letter]);
+
     const modifyLetters = (letter, remove = false) => {
         const cloned = [...letters];
 
@@ -91,7 +106,7 @@ export default function ButtonCell({
     };
 
     return (
-        <button onClick={() => modifyLetters(letter, remove)}>
+        <button ref={buttonRef} onClick={() => modifyLetters(letter, remove)}>
             <Cell state="miss" letter={letter} />
         </button>
     );
