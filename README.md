@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" align="center" src="/src/assets/favicon.png">
+  <img width="100" align="center" src="/src/assets/favicon.png">
 </p>
 <h1 align="center">
   Wordle
@@ -7,3 +7,4 @@
 <p align="center">
   A Wordle Clone built with React
 </p>
+
