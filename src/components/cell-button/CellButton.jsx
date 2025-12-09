@@ -38,13 +38,12 @@ export default function ButtonCell({
             let key = e.key.toUpperCase();
 
             switch (key) {
-                case "Enter": key = "✓"; break;
-                case "Backspace": key = "⬅"; break;
+                case "ENTER": key = "✓"; break;
+                case "BACKSPACE": key = "⬅"; break;
             };
 
-            if (e.key.toUpperCase() === letter.toUpperCase()) {
+            if (key === letter.toUpperCase()) {
                 buttonRef.current.click();
-                console.log(e.key);
             }
         };
 
