@@ -9,10 +9,12 @@ export default function Cell(props) {
 
     let borderColor;
 
-    if (!isActive && isWordActive) {
+    if (!isWordActive) {
         borderColor = '#444444';
     } else {
-        borderColor = '#90caf9';
+        if (isActive) {
+            borderColor = '#90caf9';
+        }
     }
 
     if (!isActive && isWordActive) {

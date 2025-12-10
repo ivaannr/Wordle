@@ -37,9 +37,14 @@ export default function App() {
   const [previousWords, setPreviousWords] = useState(indexmap);
   const [previousLetters, setPreviousLetters] = useState(previousLettersMap);
   const [isWinModalOpen, setWinModalOpen] = useState(false);
+  const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
 
   const openWinModal = () => setWinModalOpen(true);
   const closeWinModal = () => setWinModalOpen(false);
+
+  const openSettingsModal = () => setSettingsModalOpen(true);
+  const closeSettingsModal = () => setSettingsModalOpen(false);
+
 
   useEffect(() => {
     // const fetchWordAsync = async () => {
@@ -147,6 +152,33 @@ export default function App() {
             </button>
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        isOpen={isWinModalOpen}
+        onRequestClose={closeSettingsModal}
+        closeTimeoutMS={50}
+        style={{
+          content: {
+            width: "600px",
+            height: "300px",
+            margin: "auto",
+            display: "flex",
+            justifyContent: "center",
+            borderRadius: "10px",
+            borderColor: "#444444",
+            inset: "50% auto auto 50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "#1b1b1b"
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }
+        }}
+      >
+      
+      
+      
       </Modal>
 
       <ToastContainer
