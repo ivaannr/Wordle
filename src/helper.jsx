@@ -1,5 +1,31 @@
-import React from "react";
+/**
+ * 
+ * @param {Socket} socket 
+ * @param {Object} message 
+ */
+function sendInfo(socket, message) {
+  if (!socket) {
+    console.error("Socket is undefined");
+    return; 
+}
 
+  const json = JSON.stringify(message);
+
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.send(json);
+  } else {
+    socket.addEventListener('open', () => {
+      socket.send(json);
+    }, { once: true });
+  }
+}
+
+
+/**
+ * 
+ * @param {String} state The state of a letter 
+ * @returns {String} The HEX code of the state's assigned color.
+ */
 function getColor(state) {
     switch (state) {
         case "correct": return "#3fbf00";
@@ -9,8 +35,14 @@ function getColor(state) {
     };
 }
 
-async function fetchWord(lang) {
-    const url = 'https://random-word-api.herokuapp.com/word?length=5&lang=' + lang;
+/**
+ * 
+ * @param {String} lang The language abbreviation (ex: "es", "en") 
+ * @param {Number} length The length of the word
+ * @returns {String} The fetched word
+ */
+async function fetchWord(lang, length) {
+    const url = 'https://random-word-api.herokuapp.com/word?length=' + length + '&lang=' + lang;
     const response = await fetch(url);
     const json = await response.json();
     console.log("Word:", json[0])
@@ -56,8 +88,6 @@ function getWordMatches(word, letters) {
 
     return result;
 }
-
-
 
 function createMatches(word, letters) {
     const matches = new Map();
@@ -141,4 +171,4 @@ function getMapLastIndex(map) {
     keys.sort((a, b) => a - b);
     return keys[map.size - 1];
 }
-export { fetchWord, getColor, getWordMatches, replaceAccents, createLettersData, isMatchFinished }
+export { fetchWord, getColor, getWordMatches, replaceAccents, createLettersData, isMatchFinished, sendInfo }

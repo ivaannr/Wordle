@@ -3,7 +3,7 @@ import './WinModal.css'
 import './SettingsModal.css'
 import "react-toastify/dist/ReactToastify.css"
 import { useState, useEffect } from 'react'
-import { fetchWord, getWordMatches, replaceAccents } from './helper'
+import { fetchWord, getWordMatches, replaceAccents, sendInfo } from './helper'
 import { ToastContainer } from 'react-toastify'
 import Header from './components/header/header'
 import MainContainer from './components/main-container/main-container'
@@ -44,6 +44,7 @@ export default function App() {
   const [wordCount, setWordCount] = useState(6);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const [isLoseModalOpen, setLoseModalOpen] = useState(false);
+  const socket = new WebSocket("ws://localhost:8080/ws");
 
   const openWinModal = () => setWinModalOpen(true);
   const closeWinModal = () => setWinModalOpen(false);
@@ -54,6 +55,26 @@ export default function App() {
   const openSettingsModal = () => setSettingsModalOpen(true);
   const closeSettingsModal = () => setSettingsModalOpen(false);
 
+  socket.onopen = () => {
+    console.log("Successfully connected to the server");
+  };
+
+  socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data?.letters) {
+      const lettersArray = data.letters.map(item => item.letter);
+      console.log("Data received:", lettersArray);
+      setLetters(lettersArray);
+    }
+    
+
+  };
+
+  socket.onclose = () => {
+    console.log("Conexion closed");
+  };
+
 
   useEffect(() => {
     const fetchWordAsync = async () => {
@@ -61,7 +82,19 @@ export default function App() {
       setWord(w);
     };
 
-    fetchWordAsync();
+    //fetchWordAsync();
+
+    const w = {
+      letters: [
+        { letter: "A", index: 0, state: "correct" },
+        { letter: "B", index: 1, state: "correct" },
+        { letter: "C", index: 2, state: "correct" },
+        { letter: "D", index: 3, state: "correct" },
+        { letter: "A", index: 4, state: "correct" }
+      ]
+    }
+
+    sendInfo(socket, w);
   }, []);
 
   useEffect(() => {
