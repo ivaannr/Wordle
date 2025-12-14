@@ -2,8 +2,7 @@ import { useRef, useEffect } from "react";
 import Cell from "../letter-cell/cell";
 import './CellButton.css'
 import { toast } from "react-toastify";
-import { createLettersData } from "../../helper";
-
+import { createLettersData, sendInfo, parseInfo } from "../../helper";
 
 
 let previousLettersMap = new Map([]);
@@ -11,7 +10,7 @@ Array.from({ length: 5 }).forEach((_, i) => {
     previousLettersMap.set(i, "")
 })
 
-export default function ButtonCell({
+export default function ButtonCell( {
         letter,
         remove = false,
         letters,
@@ -33,8 +32,9 @@ export default function ButtonCell({
         word,
         openWinModal,
         isPopUpOpen,
-        openLoseModal
-    }) {
+        openLoseModal,
+        socket
+    } ) {
     const buttonRef = useRef();
 
     useEffect(() => {
@@ -70,7 +70,8 @@ export default function ButtonCell({
             newMap.set(currentWordIndex, matches);
             setPreviousWords(newMap);
             setCurrentWordIndex(currentWordIndex + 1);
-            setLettersData(createLettersData(letters, matches));
+            const nLettersData = createLettersData(letters, matches);
+            setLettersData(nLettersData);
             setLetters(emptyArr);
             setCurrentLetterIndex(0);
             setPreviousLetters(previousLettersMap);
@@ -86,6 +87,16 @@ export default function ButtonCell({
                 openLoseModal();
                 console.log("LOSS");
                 return;
+            }
+
+            const parsedInfo = parseInfo(nLettersData);
+            //console.log(parsedInfo);
+
+            if (socket) {
+                sendInfo(socket, parsedInfo);
+                console.log("Info sent:", parsedInfo);
+            } else {
+                console.log("Info couldn't be sent.");
             }
 
             return;

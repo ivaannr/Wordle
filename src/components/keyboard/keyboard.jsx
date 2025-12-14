@@ -22,7 +22,8 @@ const Keyboard = ({
         word,
         openWinModal,
         isPopUpOpen,
-        openLoseModal
+        openLoseModal,
+        socket
     }) => {
 
     const rows = [
@@ -75,6 +76,7 @@ const Keyboard = ({
                         matches={matches}
                         submitWord={true}
                         {...commonProps}
+                        socket={socket}
                     />
                     <ButtonCell
                         letter="⬅"
@@ -105,6 +107,7 @@ const Keyboard = ({
                             word={word}
                             openWinModal={openWinModal}
                             openLoseModal={openLoseModal}
+                            socket={socket}
                         />
                         <ButtonCell
                             letter="⬅"

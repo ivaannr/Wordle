@@ -2,7 +2,7 @@ import './App.css'
 import './WinModal.css'
 import './SettingsModal.css'
 import "react-toastify/dist/ReactToastify.css"
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useEffectEvent } from 'react'
 import { fetchWord, getWordMatches, replaceAccents, sendInfo } from './helper'
 import { ToastContainer } from 'react-toastify'
 import Header from './components/header/header'
@@ -71,13 +71,17 @@ export default function App() {
   };
 
   useEffect(() => {
+    console.log("Previous Opponent Words:", previousOpponentWords);
+  }, [previousOpponentWords]);
+
+  useEffect(() => {
 
     if (!isMultiplayer) {
       if (socket.current) {
         socket.current.close();
         socket.current = null;
       }
-      
+
       return;
     }
 
@@ -97,8 +101,8 @@ export default function App() {
         console.log("Data received:", data);
 
         setPreviousOpponentWords(prev => [...prev, data]);
-        setOpponentWordIndex(prev => prev + 1);
         setOpponentData(data);
+        setOpponentWordIndex(prev => prev + 1);
       }
     };
 
@@ -228,6 +232,7 @@ export default function App() {
         openWinModal={openWinModal}
         isPopUpOpen={isPopUpOpen}
         openLoseModal={openLoseModal}
+        socket={socket.current}
       />
 
       <Modal

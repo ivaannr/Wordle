@@ -1,6 +1,6 @@
 /**
  * 
- * @param {Socket} socket 
+ * @param {WebSocket} socket 
  * @param {Object} message 
  */
 function sendInfo(socket, message) {
@@ -20,6 +20,23 @@ function sendInfo(socket, message) {
   }
 }
 
+/**
+ * Parses the submmited word info as an object to be sent to the other player
+ * @param {Array<Object>} info 
+ * @returns {Object} the response info
+ */
+function parseInfo(info) {
+    return {
+        letters: 
+        [    
+            { letter: info[0].letter, index: 0, state: info[0].state },
+            { letter: info[1].letter, index: 1, state: info[1].state },
+            { letter: info[2].letter, index: 2, state: info[2].state },
+            { letter: info[3].letter, index: 3, state: info[3].state },
+            { letter: info[4].letter, index: 4, state: info[4].state }
+        ]
+    }
+}
 
 /**
  * 
@@ -171,4 +188,4 @@ function getMapLastIndex(map) {
     keys.sort((a, b) => a - b);
     return keys[map.size - 1];
 }
-export { fetchWord, getColor, getWordMatches, replaceAccents, createLettersData, isMatchFinished, sendInfo }
+export { fetchWord, getColor, getWordMatches, replaceAccents, createLettersData, isMatchFinished, sendInfo, parseInfo }
