@@ -10,31 +10,31 @@ Array.from({ length: 5 }).forEach((_, i) => {
     previousLettersMap.set(i, "")
 })
 
-export default function ButtonCell( {
-        letter,
-        remove = false,
-        letters,
-        setLetters,
-        length,
-        currentLetterIndex,
-        setCurrentLetterIndex,
-        currentLetter,
-        setCurrentLetter,
-        previousLetters,
-        setPreviousLetters,
-        submitWord,
-        matches,
-        currentWordIndex,
-        setCurrentWordIndex,
-        setLettersData,
-        previousWords,
-        setPreviousWords,
-        word,
-        openWinModal,
-        isPopUpOpen,
-        openLoseModal,
-        socket
-    } ) {
+export default function ButtonCell({
+    letter,
+    remove = false,
+    letters,
+    setLetters,
+    length,
+    currentLetterIndex,
+    setCurrentLetterIndex,
+    currentLetter,
+    setCurrentLetter,
+    previousLetters,
+    setPreviousLetters,
+    submitWord,
+    matches,
+    currentWordIndex,
+    setCurrentWordIndex,
+    setLettersData,
+    previousWords,
+    setPreviousWords,
+    word,
+    openWinModal,
+    isPopUpOpen,
+    openLoseModal,
+    socket
+}) {
     const buttonRef = useRef();
 
     useEffect(() => {
@@ -77,6 +77,16 @@ export default function ButtonCell( {
             setPreviousLetters(previousLettersMap);
             setLettersData([]);
 
+            const parsedInfo = parseInfo(nLettersData);
+            //console.log(parsedInfo);
+
+            if (socket) {
+                sendInfo(socket, parsedInfo);
+                console.log("Info sent:", parsedInfo);
+            } else {
+                console.log("Info couldn't be sent.");
+            }
+
             if (word.toUpperCase() === letters.join("".toUpperCase())) {
                 openWinModal();
                 console.log("WIN");
@@ -87,16 +97,6 @@ export default function ButtonCell( {
                 openLoseModal();
                 console.log("LOSS");
                 return;
-            }
-
-            const parsedInfo = parseInfo(nLettersData);
-            //console.log(parsedInfo);
-
-            if (socket) {
-                sendInfo(socket, parsedInfo);
-                console.log("Info sent:", parsedInfo);
-            } else {
-                console.log("Info couldn't be sent.");
             }
 
             return;

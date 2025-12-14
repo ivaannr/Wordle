@@ -21,7 +21,6 @@ export default function OppWord({ id, data, length, opponentWordIndex, previousO
       </div>
     );
   } else {
-    console.log(`Letters word ${id}:`, letters);
     return (
       <div className="letter">
         {Array.from({ length }).map((_, i) => {
