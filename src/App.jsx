@@ -51,6 +51,8 @@ export default function App() {
   const [previousOpponentWords, setPreviousOpponentWords] = useState([]);
   const [isMultiplayer, setIsMultiplayer] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [userName, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
 
   const socket = useRef(null);
@@ -427,7 +429,10 @@ export default function App() {
           </div>
           <div className="mid">
             <div className='settings'>
-              <LoginForm />
+              <LoginForm 
+                setName={setUsername}
+                setPass={setPassword}
+              />
             </div>
           </div>
         </div>

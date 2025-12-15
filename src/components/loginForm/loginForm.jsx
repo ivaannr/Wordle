@@ -1,19 +1,40 @@
 import './loginForm.css'
 import { toast } from "react-toastify";
 
-const LoginForm = ( { setName, setPass } ) => {
+const LoginForm = ({ setName, setPass }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
 
-        const name = form.name.value;
+        const name = form.name.value.trim();
+        const pass = form.password.value.trim();
+
+        const lettersAndNumbers = /^[a-zA-Z0-9]+$/;
+        const allowedCharsForPassword = /^[a-zA-Z0-9!@#$%&?]+$/;
+
+        if (!lettersAndNumbers.test(name)) {
+            toast.warn("The username may only contain letters or numbers");
+            return;
+        }
+
+        if (!allowedCharsForPassword.test(pass)) {
+            toast.warn(
+                "The password may only contain letters, numbers or any of the following chars: !, @, #, $, %, &, ?"
+            );
+            return;
+        }
+
 
         setName(name);
-        setPass(form.password.value);
+        setPass(pass);
 
-        toast.info("You've logged as", name);
         console.log(`User ${name} logged in!`);
+        toast.info(`You've logged in as ${name}`);
+    };
+
+    const onTextChanged = (e) => {
+
     };
 
     return (
