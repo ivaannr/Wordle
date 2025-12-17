@@ -13,6 +13,7 @@ import Dropdown from './components/dropdown/dropdown'
 import { LengthTextfield } from './components/textfield/textfield'
 import OppPanel from './components/multiplayer/opponentPanel'
 import LoginForm from './components/loginForm/loginForm'
+import Footer from './components/footer/footer'
 
 let indexmap = new Map([
   [0, { state: "empty", letter: "" }],
@@ -51,6 +52,7 @@ export default function App() {
   const [previousOpponentWords, setPreviousOpponentWords] = useState([]);
   const [isMultiplayer, setIsMultiplayer] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [seenLettersData, setSeenLettersData] = useState([]);
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -71,9 +73,34 @@ export default function App() {
     setMatches([]);
     setPreviousWords(new Map(indexmap));
     setPreviousLetters(new Map(previousLettersMap));
+    setSeenLettersData([]);
     closeAllModals();
     fetchWordAsync();
   };
+
+  useEffect(() => {
+    setSeenLettersData(prev => {
+      const cloned = [...prev];
+
+      for (const match of matches) {
+        const existing = cloned.find(d => d.letter === match.letter);
+
+        if (existing) {
+          if (
+            existing.state !== match.state &&
+            ["contains", "correct"].includes(match.state)
+          ) {
+            cloned[cloned.indexOf(existing)] = { ...existing, state: match.state };
+          }
+        } else {
+          cloned.push({ letter: match.letter, state: match.state });
+        }
+      }
+
+      return cloned;
+    });
+  }, [currentWordIndex]);
+
 
   useEffect(() => {
     console.log("Previous Opponent Words:", previousOpponentWords);
@@ -243,6 +270,10 @@ export default function App() {
         isPopUpOpen={isPopUpOpen}
         openLoseModal={openLoseModal}
         socket={socket.current}
+      />
+
+      <Footer
+        lettersData={seenLettersData}
       />
 
       <Modal
@@ -429,7 +460,7 @@ export default function App() {
           </div>
           <div className="mid">
             <div className='settings'>
-              <LoginForm 
+              <LoginForm
                 setName={setUsername}
                 setPass={setPassword}
               />
