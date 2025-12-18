@@ -279,6 +279,7 @@ export default function App() {
 
       <Footer
         lettersData={seenLettersData}
+        isEnabled={!isMultiplayer}
       />
 
       <Modal

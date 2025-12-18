@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import './footer.css'
 import TinyCell from "../tinyCell/tinyCell";
 
-export default function Footer({ lettersData = [] }) {
+export default function Footer({ lettersData = [], isEnabled }) {
+
+    if (!isEnabled) {
+        return null;
+    }
 
     const rows = [];
     let currentRow = [];
