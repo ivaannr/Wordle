@@ -169,7 +169,8 @@ export default function App() {
 
 
   useEffect(() => {
-    fetchWordAsync();
+    //fetchWordAsync();
+    setWord("aireo");
   }, []);
 
   useEffect(() => {
