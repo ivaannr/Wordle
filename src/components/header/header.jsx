@@ -1,23 +1,54 @@
 import React from "react";
 import './header.css'
 
-export default function Header({ openSettingsModal, enableMultiplayer, openLoginModal }) {
+import statsIcon from '../../assets/STATS_ICON.png';
+import userIcon from '../../assets/USER_ICON.png';
+import settingsIcon from '../../assets/SETTINGS_ICON.png';
+import multiplayerIcon from '../../assets/MULTIPLAYER_ICON.png';
+import multiplayerOffIcon from '../../assets/MULTIPLAYER_OFF_ICON.png';
+
+export default function Header({
+    openSettingsModal,
+    enableMultiplayer,
+    openLoginModal,
+    isMultiplayer,
+    disableMultiplayer
+}) {
+
+    const changeMultiplayer = () => {
+        if (!isMultiplayer) {
+            enableMultiplayer();
+        } else {
+            disableMultiplayer();
+        }
+    };
+
     return (
         <div id="header">
             <div className="menu">
+
                 <button>
-                    <img src="src\assets\STATS_ICON.png" height={25}></img>
+                    <img src={statsIcon} height={25} />
                 </button>
-                <button onClick={() => openLoginModal()}>
-                    <img src="src\assets\USER_ICON.png" height={25}></img>
+
+                <button onClick={openLoginModal}>
+                    <img src={userIcon} height={25} />
                 </button>
+
                 <h1>Wordle</h1>
-                <button onClick={() => openSettingsModal()}>
-                    <img src="src\assets\SETTINGS_ICON.png" height={25}></img>
+
+                <button onClick={openSettingsModal}>
+                    <img src={settingsIcon} height={25} />
                 </button>
-                <button onClick={() => enableMultiplayer()}>
-                    <img src="src\assets\MULTIPLAYER_ICON.png" height={25}></img>
+
+                <button onClick={changeMultiplayer}>
+                    <img
+                        src={isMultiplayer ? multiplayerOffIcon : multiplayerIcon}
+                        height={25}
+                        alt="Multiplayer toggle"
+                    />
                 </button>
+
             </div>
             <hr />
         </div>

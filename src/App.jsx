@@ -171,11 +171,8 @@ export default function App() {
     closeLoginModal();
   };
 
-
-
   useEffect(() => {
-    //fetchWordAsync();
-    setWord("aireo");
+    fetchWordAsync();
   }, []);
 
   useEffect(() => {
@@ -224,6 +221,8 @@ export default function App() {
       <Header
         openSettingsModal={openSettingsModal}
         enableMultiplayer={enableMultiplayer}
+        disableMultiplayer={disableMultiplayer}
+        isMultiplayer={isMultiplayer}
         openLoginModal={openLoginModal}
       />
 
