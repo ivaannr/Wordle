@@ -4,20 +4,20 @@
  * @param {Object} message 
  */
 function sendInfo(socket, message) {
-  if (!socket) {
-    console.error("Socket is undefined");
-    return; 
-}
+    if (!socket) {
+        console.error("Socket is undefined");
+        return;
+    }
 
-  const json = JSON.stringify(message);
+    const json = JSON.stringify(message);
 
-  if (socket.readyState === WebSocket.OPEN) {
-    socket.send(json);
-  } else {
-    socket.addEventListener('open', () => {
-      socket.send(json);
-    }, { once: true });
-  }
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(json);
+    } else {
+        socket.addEventListener('open', () => {
+            socket.send(json);
+        }, { once: true });
+    }
 }
 
 /**
@@ -27,14 +27,14 @@ function sendInfo(socket, message) {
  */
 function parseInfo(info) {
     return {
-        letters: 
-        [    
-            { letter: info[0].letter, index: 0, state: info[0].state },
-            { letter: info[1].letter, index: 1, state: info[1].state },
-            { letter: info[2].letter, index: 2, state: info[2].state },
-            { letter: info[3].letter, index: 3, state: info[3].state },
-            { letter: info[4].letter, index: 4, state: info[4].state }
-        ]
+        letters:
+            [
+                { letter: info[0].letter, index: 0, state: info[0].state },
+                { letter: info[1].letter, index: 1, state: info[1].state },
+                { letter: info[2].letter, index: 2, state: info[2].state },
+                { letter: info[3].letter, index: 3, state: info[3].state },
+                { letter: info[4].letter, index: 4, state: info[4].state }
+            ]
     }
 }
 
@@ -73,6 +73,25 @@ async function registerUser(user, pass) {
     } catch (exception) {
         console.log("An error ocurred:", exception);
     }
+}
+
+/**
+ * Compares two states and returns the highest:
+ * correct > contains > miss
+ * @param {String} existingState
+ * @param {String} foundState
+ * @returns {String} The highest compared state 
+ */
+function compareStates(existingState, foundState) {
+    const priority = {
+        miss: 0,
+        contains: 1,
+        correct: 2
+    };
+
+    return priority[foundState] > priority[existingState]
+        ? foundState
+        : existingState;
 }
 
 /**
@@ -225,4 +244,14 @@ function getMapLastIndex(map) {
     keys.sort((a, b) => a - b);
     return keys[map.size - 1];
 }
-export { fetchWord, getColor, getWordMatches, replaceAccents, createLettersData, isMatchFinished, sendInfo, parseInfo }
+export { 
+    fetchWord, 
+    getColor, 
+    getWordMatches, 
+    replaceAccents, 
+    createLettersData, 
+    isMatchFinished, 
+    sendInfo, 
+    parseInfo,
+    compareStates
+}

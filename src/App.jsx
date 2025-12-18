@@ -2,8 +2,8 @@ import './App.css'
 import './WinModal.css'
 import './SettingsModal.css'
 import "react-toastify/dist/ReactToastify.css"
-import { useState, useEffect, useRef, useEffectEvent } from 'react'
-import { fetchWord, getWordMatches, replaceAccents, sendInfo } from './helper'
+import { useState, useEffect, useRef } from 'react'
+import { fetchWord, getWordMatches, replaceAccents, compareStates } from './helper'
 import { ToastContainer } from 'react-toastify'
 import Header from './components/header/header'
 import MainContainer from './components/main-container/main-container'
@@ -90,7 +90,12 @@ export default function App() {
             existing.state !== match.state &&
             ["contains", "correct"].includes(match.state)
           ) {
-            cloned[cloned.indexOf(existing)] = { ...existing, state: match.state };
+
+            const foundState = match.state;
+            const existingState = existing.state;
+            let newState = compareStates(existingState, foundState);
+            
+            cloned[cloned.indexOf(existing)] = { ...existing, state: newState };
           }
         } else {
           cloned.push({ letter: match.letter, state: match.state });
