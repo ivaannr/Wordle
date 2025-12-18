@@ -161,8 +161,14 @@ export default function App() {
   const openLoginModal = () => setIsLoginModalOpen(true);
   const closeLoginModal = () => setIsLoginModalOpen(false);
 
-  const enableMultiplayer = () => setIsMultiplayer(true);
-  const disableMultiplayer = () => setIsMultiplayer(false);
+  const enableMultiplayer = () => {
+    resetGame();
+    setIsMultiplayer(true);
+  };
+  const disableMultiplayer = () => {
+    resetGame();
+    setIsMultiplayer(false)
+  };
 
   const closeAllModals = () => {
     closeWinModal();
