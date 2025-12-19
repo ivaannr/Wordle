@@ -78,7 +78,7 @@ export default function ButtonCell({
             setPreviousLetters(previousLettersMap);
             setLettersData([]);
 
-            const parsedInfo = parseInfo(nLettersData);
+            const parsedInfo = parseInfo(nLettersData, word);
             //console.log(parsedInfo);
 
             if (socket) {

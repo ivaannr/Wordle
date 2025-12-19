@@ -56,7 +56,6 @@ export default function App() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-
   const socket = useRef(null);
 
   const fetchWordAsync = async () => {
@@ -75,7 +74,7 @@ export default function App() {
     setPreviousLetters(new Map(previousLettersMap));
     setSeenLettersData([]);
     closeAllModals();
-    fetchWordAsync();
+    //fetchWordAsync();
   };
 
   useEffect(() => {
@@ -93,7 +92,7 @@ export default function App() {
 
             const foundState = match.state;
             const existingState = existing.state;
-            let newState = compareStates(existingState, foundState);
+            const newState = compareStates(existingState, foundState);
             
             cloned[cloned.indexOf(existing)] = { ...existing, state: newState };
           }
@@ -106,10 +105,18 @@ export default function App() {
     });
   }, [currentWordIndex]);
 
-
   useEffect(() => {
-    console.log("Previous Opponent Words:", previousOpponentWords);
-  }, [previousOpponentWords]);
+    
+    const oppWord = opponentData?.letters?.map(d => d.letter).join('').toLowerCase();
+    console.log(oppWord);
+
+    if (oppWord === opponentData?.wordToGuess?.toLowerCase() && oppWord) {
+      console.log("LOSS");
+    }
+
+
+
+  }, [opponentData]);
 
   useEffect(() => {
 
@@ -124,7 +131,8 @@ export default function App() {
 
     if (socket.current) { return; }
 
-    socket.current = new WebSocket("https://wordleapi-qhp7.onrender.com/ws");
+    //socket.current = new WebSocket("https://wordleapi-qhp7.onrender.com/ws");
+    socket.current = new WebSocket("ws://localhost:8080/ws");
 
     socket.current.onopen = () => {
       console.log("Successfully connected to the server");
@@ -178,7 +186,8 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchWordAsync();
+    //fetchWordAsync();
+    setWord("Aureo");
   }, []);
 
   useEffect(() => {
@@ -288,6 +297,7 @@ export default function App() {
         isEnabled={!isMultiplayer}
       />
 
+      {/* Win modal */}
       <Modal
         isOpen={isWinModalOpen}
         onRequestClose={closeWinModal}
@@ -333,6 +343,7 @@ export default function App() {
         </div>
       </Modal>
 
+      {/* Lose modal */}
       <Modal
         isOpen={isLoseModalOpen}
         onRequestClose={closeLoseModal}
@@ -378,6 +389,7 @@ export default function App() {
         </div>
       </Modal>
 
+      {/* Settings modal */}
       <Modal
         isOpen={isSettingsModalOpen}
         onRequestClose={closeSettingsModal}
@@ -443,6 +455,7 @@ export default function App() {
 
       </Modal>
 
+      {/* Login modal */}
       <Modal
         isOpen={isLoginModalOpen}
         onRequestClose={closeLoginModal}

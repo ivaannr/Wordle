@@ -22,10 +22,11 @@ function sendInfo(socket, message) {
 
 /**
  * Parses the submmited word info as an object to be sent to the other player
- * @param {Array<Object>} info 
+ * @param {Array<Object>} info
+ * @param {String} wordToGuess
  * @returns {Object} the response info
  */
-function parseInfo(info) {
+function parseInfo(info, wordToGuess) {
     return {
         letters:
             [
@@ -34,7 +35,8 @@ function parseInfo(info) {
                 { letter: info[2].letter, index: 2, state: info[2].state },
                 { letter: info[3].letter, index: 3, state: info[3].state },
                 { letter: info[4].letter, index: 4, state: info[4].state }
-            ]
+            ],
+        wordToGuess: wordToGuess
     }
 }
 
