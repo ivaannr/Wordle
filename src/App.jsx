@@ -81,7 +81,7 @@ export default function App() {
     setHasOpponentWon(false);
     setHasWon(false);
     setIsMultiplayer(false);
-    setAreKeysEnabled(true); // TODO => FIX KEYS NOT WORKING WHEN CLICKING ON RELOAD BUTTON
+    enableKeyboard();
     fetchWordAsync(); 
   };
 
@@ -196,6 +196,9 @@ export default function App() {
 
   const openLoginModal = () => setIsLoginModalOpen(true);
   const closeLoginModal = () => setIsLoginModalOpen(false);
+
+  const enableKeyboard = () => setAreKeysEnabled(true);
+  const disableKeyboard = () => setAreKeysEnabled(false);
 
   const enableMultiplayer = () => {
     resetGame();
@@ -322,7 +325,7 @@ export default function App() {
         isMultiplayer={isMultiplayer}
         setHasWon={setHasWon}
         areKeysEnabled={areKeysEnabled}
-        disableKeyboard={() => { setAreKeysEnabled(false); }}
+        disableKeyboard={disableKeyboard}
       />
 
       <Footer

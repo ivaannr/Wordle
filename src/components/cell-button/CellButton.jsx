@@ -43,8 +43,6 @@ export default function ButtonCell({
 
     useEffect(() => {
 
-        if (!areKeysEnabled) { return; }
-
         const handleKeyDown = (e) => {
 
             let key = e.key.toUpperCase();
@@ -68,7 +66,12 @@ export default function ButtonCell({
     const modifyLetters = (letter, remove = false) => {
         const cloned = [...letters];
 
+        console.log
+
         if (submitWord) {
+
+            if (!areKeysEnabled) { return; }
+
             if (letters.length !== length) {
                 toast.warn("You may fill the word before submitting it.");
                 return;
@@ -114,6 +117,9 @@ export default function ButtonCell({
         }
 
         if (!remove) {
+
+            if (!areKeysEnabled) { return; }
+
             if (cloned.length === length) {
                 toast.warn("You can't add more letters.");
                 return;
@@ -127,6 +133,8 @@ export default function ButtonCell({
             setPreviousLetters(prevLettersCopy);
             setCurrentLetterIndex(currentLetterIndex => currentLetterIndex + 1);
         } else {
+
+            if (!areKeysEnabled) { return; }
 
             const canRemove = currentLetterIndex > 0;
 
