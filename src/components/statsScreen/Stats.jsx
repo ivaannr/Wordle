@@ -10,14 +10,18 @@ import gamesIcon from '../../assets/SWORDS_ICON.png';
 import missIcon from '../../assets/CROSS_ICON.png';
 import crownIcon from '../../assets/CROWN_ICON.png';
 import skullIcon from '../../assets/SKULL_ICON.png';
+import fav from '../../assets/favicon.png';
 
 const StatsScreen = () => {
+
     const { user, setUser } = useContext(UserContext);
 
-    const icons = [gamesIcon, crownIcon, missIcon, winIcon, skullIcon, percentIcon];
-    const winLosePercentage = Number( (Number(user?.multiplayerWins) / Number(user?.multiplayerLosses)) * 100 );
-    const totalMatches = user?.wordsGuessed + user?.wordsMissed + user?.multiplayerWins + user?.multiplayerLosses; 
+    const winLosePercentage = (user?.multiplayerWins / user?.multiplayerLosses) * 100;
+    const totalMatches = user?.wordsGuessed + user?.wordsMissed + user?.multiplayerWins + user?.multiplayerLosses;
+
     const values = [totalMatches, user?.wordsGuessed, user?.wordsMissed, user?.multiplayerWins, user?.multiplayerLosses, `${winLosePercentage}%`];
+    const icons = [gamesIcon, crownIcon, missIcon, winIcon, skullIcon, percentIcon];
+
     const navigate = useNavigate();
     const logged = user != null;
 
@@ -35,11 +39,12 @@ const StatsScreen = () => {
             <div className="screen">
                 <div className="profileDiv">
                     <div className="pictureBox">
-                        <img src={null} height={250} />
+                        <img src={fav} height={250} />
                     </div>
 
                     <div className="mainInfo">
-                        <p>{user?.username ?? "User0123456789"} {user?.elo ?? 1000}</p>
+                        <p>{user?.username ?? "User0123456789"}</p>
+                        <p>{user?.elo ?? 1000}</p>
                     </div>
                 </div>
                 <div className="statsContainer">
@@ -58,9 +63,8 @@ const StatsScreen = () => {
                                 {
                                     [
                                         "Games Played", "Words Guessed", "Words Missed",
-                                        "Multiplayer Wins", "Multiplayer Losses", "Win/Lose %"
-                                    ].map((field, index) =>
-                                    (
+                                        "Multiplayer Wins", "Multiplayer Losses", "Win / Lose %"
+                                    ].map((field, index) => (
                                         <>
                                             <StatRow key={field} icon={icons[index]} title={field} value={values[index] ?? 0} />
                                         </>
