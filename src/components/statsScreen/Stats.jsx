@@ -1,7 +1,7 @@
 import './Stats.css'
 import { StatsHeader } from '../header/header';
 import { UserContext } from '../../context/UserContext';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import StatRow from './statRow/StatRow';
 import winIcon from '../../assets/MEDALS_ICON.png';
@@ -11,8 +11,11 @@ import missIcon from '../../assets/CROSS_ICON.png';
 import crownIcon from '../../assets/CROWN_ICON.png';
 import skullIcon from '../../assets/SKULL_ICON.png';
 import fav from '../../assets/favicon.png';
+import Dropdown from '../dropdown/dropdown';
 
 const StatsScreen = () => {
+    const [numberOfPlayers, setNumberOfPlayers] = useState(5);
+    const [playersData, setPlayersData] = useState([]);
 
     const { user, setUser } = useContext(UserContext);
 
@@ -31,6 +34,8 @@ const StatsScreen = () => {
     //         return;
     //     }
     // }, []);
+
+    
 
     return (
         <>
@@ -53,6 +58,11 @@ const StatsScreen = () => {
                     </div>
                     <div className="bottomStatsContainer">
                         <div className="bottomStatsLeftDiv">
+                            <div className="statsTitleDiv">
+                                <h1>Leaderboards</h1>
+
+                            </div>
+
 
                         </div>
                         <div className="bottomStatsRightDiv">
