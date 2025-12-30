@@ -1,0 +1,12 @@
+.table {
+    margin-left: 32px;
+    font-size: 24px;
+}
+
+.pad {
+    padding: 4px 20px 12px 0;
+}
+
+.tr {
+    text-align: left;
+}

@@ -12,6 +12,15 @@ import crownIcon from '../../assets/CROWN_ICON.png';
 import skullIcon from '../../assets/SKULL_ICON.png';
 import fav from '../../assets/favicon.png';
 import Dropdown from '../dropdown/dropdown';
+import UsersTable from './usersTable/UsersTable';
+
+const users = [
+    { id: 123, username: "User1234567890", wins: 2, losses: 5, totalMatches: 10 },
+    { id: 124, username: "ivan", wins: 2, losses: 5, totalMatches: 1 },
+    { id: 125, username: "arturito", wins: 2, losses: 5, totalMatches: 5 },
+    { id: 126, username: "aron", wins: 2, losses: 5, totalMatches: 2 },
+    { id: 127, username: "andres", wins: 2, losses: 5, totalMatches: 2 },
+];
 
 const StatsScreen = () => {
     const [numberOfPlayers, setNumberOfPlayers] = useState(5);
@@ -62,7 +71,7 @@ const StatsScreen = () => {
                                 <h1>Leaderboards</h1>
 
                             </div>
-
+                            <UsersTable users={users}/>
 
                         </div>
                         <div className="bottomStatsRightDiv">
