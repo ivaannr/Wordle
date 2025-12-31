@@ -2,7 +2,6 @@ import './Tabs.css'
 import { useState } from 'react';
 
 export const SimpleTab = ( { titles, value, setValue } ) => {
-
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const changeSelectedIndex = (newIndex) => {
@@ -10,7 +9,7 @@ export const SimpleTab = ( { titles, value, setValue } ) => {
         if (newIndex === value) { return; }
 
         setSelectedIndex(newIndex);
-        setValue(Number(newIndex));
+        setValue(Number(titles[newIndex]));
     }
 
     return (

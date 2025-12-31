@@ -20,7 +20,7 @@ export default function Header({
 
     const navigate = useNavigate();
 
-    const goStats = () => navigate("/stats"); 
+    const goStats = () => navigate("/stats");
 
     const changeMultiplayer = () => {
         if (!isMultiplayer) {
@@ -63,11 +63,13 @@ export default function Header({
 }
 
 export const StatsHeader = () => {
+    const navigate = useNavigate();
+
     return (
         <div id="header">
             <div className="menu">
 
-                <button type="button">
+                <button type="button" onClick={() => navigate("/")}>
                     <img src={playIcon} height={25} />
                 </button>
 
@@ -75,6 +77,40 @@ export const StatsHeader = () => {
 
                 <button type="button">
                     <img src={settingsIcon} height={25} />
+                </button>
+
+
+            </div>
+            <hr />
+        </div>
+    );
+};
+
+export const LoginHeader = () => {
+    const navigate = useNavigate();
+
+    return (
+        <div id="header">
+            <div className="menu">
+
+                <button type="button" onClick={() => navigate("/stats")}>
+                    <img src={statsIcon} height={25} />
+                </button>
+
+
+                <button type="button" onClick={() => navigate("/")}>
+                    <img src={playIcon} height={25} />
+                </button>
+
+                <h1>Statistics</h1>
+
+                <button type="button">
+                    <img src={settingsIcon} height={25} />
+                </button>
+
+
+                <button type="button" >
+                    <img src={multiplayerOffIcon} height={25} />
                 </button>
 
 

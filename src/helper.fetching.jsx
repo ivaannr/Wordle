@@ -5,7 +5,8 @@
  * @returns {Array<Object>} an array with the fetched players
  */
 async function fetchTopUsers(top) {
-    const URL = `https://wordleapi-qhp7.onrender.com/find/${top}`;
+    // const URL = `https://wordleapi-qhp7.onrender.com/players`;
+    const URL = `http://localhost:8080/players`;
 
     try {
         const res = await fetch(URL);
@@ -19,7 +20,7 @@ async function fetchTopUsers(top) {
             return [];
         }
 
-        return [...data].sort((a, b) => Number(b.wins) - Number(a.wins));
+        return [...data].sort((a, b) => Number(b.wins) - Number(a.wins)).slice(0, top);
     } catch (error) {
         console.error("An error occurred:", error);
         return [];

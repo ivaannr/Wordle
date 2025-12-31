@@ -1,11 +1,11 @@
 .tabContainer {
     display: flex;
     flex-direction: row;
-    margin-right: 120px;
+    margin-right: 55px;
 }
 
 .tabButton {
-    padding: 0 12px 0 12px;
+    padding: 0 12px 0 0px;
     max-height: 50%;
     min-width: 30%;
     display: flex;
