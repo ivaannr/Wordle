@@ -102,7 +102,7 @@ export const LoginHeader = () => {
                     <img src={playIcon} height={25} />
                 </button>
 
-                <h1>Statistics</h1>
+                <h1>Login</h1>
 
                 <button type="button">
                     <img src={settingsIcon} height={25} />

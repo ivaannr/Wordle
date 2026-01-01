@@ -64,7 +64,7 @@ const LoginForm = () => {
                 </div>
 
                 <div className="formRow">
-                    <button className="submit" type='submit'>Login/Sign Up</button>
+                    <button className="submit" type='submit'>Login/Register</button>
                 </div>
             </form>
         </div>

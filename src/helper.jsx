@@ -41,43 +41,6 @@ function parseInfo(info, wordToGuess) {
 }
 
 /**
- * Posts a new user to the database
- * @param {String} user 
- * @param {String} pass 
- * @returns The response from the API in json.
- */
-async function registerUser(user, pass) {
-    const URL = `https://wordleapi-qhp7.onrender.com/users`;
-    try {
-        const userToRegister = {
-            user: user,
-            password: pass
-        };
-
-        const res = await fetch(
-            URL,
-            {
-                method: POST,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userToRegister)
-            }
-        );
-
-        if (!res.ok) {
-            throw new Error(`HTTP Error: ${res.status} || User '${user}' couldn't be registered.`);
-        }
-
-        const userRegistered = await res.json();
-        console.log("User registered correctly:", userRegistered);
-        return userRegistered;
-    } catch (exception) {
-        console.log("An error ocurred:", exception);
-    }
-}
-
-/**
  * Compares two states and returns the highest:
  * correct > contains > miss
  * @param {String} existingState

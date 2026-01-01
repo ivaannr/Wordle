@@ -27,4 +27,37 @@ async function fetchTopUsers(top) {
     }
 }
 
-export { fetchTopUsers }
+/**
+ * Posts a new user to the database
+ * @param {Object} user 
+ * @returns The response from the API in json.
+ */
+async function registerUser(user, pass) {
+    //const URL = `https://wordleapi-qhp7.onrender.com/users`;
+    const URL = `http://localhost:8080/users`;
+    try {
+
+        const res = await fetch(
+            URL,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(`HTTP Error: ${res.status} || User '${user}' couldn't be registered.`);
+        }
+
+        const userRegistered = await res.json();
+        console.log("User registered correctly:", userRegistered);
+        return userRegistered;
+    } catch (exception) {
+        console.log("An error ocurred:", exception);
+    }
+}
+
+export { fetchTopUsers, registerUser }
