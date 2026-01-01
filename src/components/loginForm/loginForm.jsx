@@ -1,10 +1,14 @@
 import './loginForm.css'
 import { toast } from "react-toastify";
-import { registerUser } from '../../helper.fetching';
+import { registerUser, userExists } from '../../helper.fetching';
+import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+const LoginForm = ( { setUser } ) => {
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
+
         event.preventDefault();
         const form = event.target;
 
@@ -34,6 +38,17 @@ const LoginForm = () => {
             wins: 0,
             losses: 0
         };
+
+        const existingUser = await userExists(user);
+
+        if (existingUser) {
+            
+            setUser(existingUser);
+            toast.info(`Logging in as ${user.username}...`);
+            console.log(`User has logged in as ${user.username}`);
+            navigate("/");
+            return;
+        }
 
         const response = await registerUser(user);
 

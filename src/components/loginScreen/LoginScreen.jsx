@@ -11,7 +11,7 @@ const LoginScreen = () => {
         <>
             <LoginHeader />
 
-            <LoginForm />
+            <LoginForm setUser={setUser} />
         </>
     );
 };

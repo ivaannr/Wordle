@@ -10,7 +10,7 @@ async function fetchTopUsers(top) {
 
     try {
         const res = await fetch(URL);
-        
+
         if (!res.ok) { throw new Error(`HTTP error ${res.status}`); }
 
         const data = await res.json();
@@ -60,4 +60,41 @@ async function registerUser(user, pass) {
     }
 }
 
-export { fetchTopUsers, registerUser }
+/**
+ * Checks if a player already exists in the database and if it does retrives the player data
+ * @param {Object} userdata the player
+ * @returns {Object} the user data
+ */
+async function userExists(userdata) {
+    //const URL = `https://wordleapi-qhp7.onrender.com/players`;
+    const URL = `http://localhost:8080/players/find`;
+    try {
+
+        const res = await fetch(
+            URL,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userdata)
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(`HTTP Error: ${res.status} || User '${user}' couldn't be registered.`);
+        }
+
+        const data = await res.json();
+
+        if (data.status === 'declined') { throw new Error('HTTP request was denied.'); }
+
+        const user = data.player; 
+
+        return user;
+    } catch (exception) {
+        console.log("An error ocurred:", exception);
+    }
+}
+
+export { fetchTopUsers, registerUser, userExists }
