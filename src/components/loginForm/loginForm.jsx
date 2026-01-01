@@ -1,9 +1,10 @@
 import './loginForm.css'
 import { toast } from "react-toastify";
+import { registerUser } from '../../helper.fetching';
 
 const LoginForm = () => {
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.target;
 
@@ -25,6 +26,18 @@ const LoginForm = () => {
             return;
         }
 
+        const user = {
+            id: '',
+            username: name,
+            password: pass,
+            ELO: 1000,
+            wins: 0,
+            losses: 0
+        };
+
+        const response = await registerUser(user);
+
+        console.log('Response:', response);
         console.log(`User ${name} logged in!`);
         toast.info(`You've logged in as ${name}`);
     };

@@ -33,8 +33,8 @@ async function fetchTopUsers(top) {
  * @returns The response from the API in json.
  */
 async function registerUser(user, pass) {
-    //const URL = `https://wordleapi-qhp7.onrender.com/users`;
-    const URL = `http://localhost:8080/users`;
+    //const URL = `https://wordleapi-qhp7.onrender.com/players`;
+    const URL = `http://localhost:8080/players`;
     try {
 
         const res = await fetch(
