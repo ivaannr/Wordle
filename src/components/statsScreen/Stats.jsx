@@ -17,6 +17,7 @@ import fav from '../../assets/favicon.png';
 import UsersTable from './usersTable/UsersTable';
 
 const StatsScreen = () => {
+    const [filterDescending, setFilterDescending] = useState(true);
     const [currentFilter, setCurrentFilter] = useState("elo");
     const [numberOfPlayers, setNumberOfPlayers] = useState(5);
     const [playersData, setPlayersData] = useState([]);
@@ -29,6 +30,8 @@ const StatsScreen = () => {
     const navigate = useNavigate();
     const logged = user != null;
 
+    const toggleDescending = () => setFilterDescending(descending => !descending);
+
     useEffect(() => {
         if (!logged) {
             toast.warn("You haven't logged in.");
@@ -40,7 +43,7 @@ const StatsScreen = () => {
     useEffect(() => {
         const loadTopUsers = async () => {
             try {
-                const playersData = await fetchTopUsers(numberOfPlayers, currentFilter);
+                const playersData = await fetchTopUsers(numberOfPlayers, currentFilter, filterDescending);
                 setPlayersData(playersData);
             } catch (ex) {
                 console.log(ex);
@@ -49,7 +52,7 @@ const StatsScreen = () => {
 
         loadTopUsers();
 
-    }, [numberOfPlayers, currentFilter]);
+    }, [numberOfPlayers, currentFilter, filterDescending]);
 
     useEffect(() => {
         const winLosePercentage = ((user?.wins / user?.losses) * 100).toFixed();
@@ -93,7 +96,7 @@ const StatsScreen = () => {
                                     setValue={setNumberOfPlayers}
                                 />
                             </div>
-                            <UsersTable users={playersData} setCurrentFilter={setCurrentFilter}/>
+                            <UsersTable users={playersData} setCurrentFilter={setCurrentFilter} toggleDescending={toggleDescending}/>
 
                         </div>
                         <div className="bottomStatsRightDiv">

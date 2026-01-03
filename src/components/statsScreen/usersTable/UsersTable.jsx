@@ -1,12 +1,12 @@
 import './UsersTable.css'
 
-const UsersTable = ({ users, setCurrentFilter }) => {
+const UsersTable = ({ users, setCurrentFilter, toggleDescending }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
     const filter = e.target.textContent.toString().toLowerCase();
-    console.log(filter);
     setCurrentFilter(filter);
+    toggleDescending();
   };
 
   return (

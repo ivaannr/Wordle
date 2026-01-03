@@ -5,7 +5,7 @@ import { sortPlayers } from './helper'
  * @param {Number} top the number of players to fetch 
  * @returns {Array<Object>} an array with the fetched players
  */
-async function fetchTopUsers(top, filter) {
+async function fetchTopUsers(top, filter, descending = true) {
     // const URL = `https://wordleapi-qhp7.onrender.com/players`;
     const URL = `http://localhost:8080/players`;
 
@@ -21,7 +21,7 @@ async function fetchTopUsers(top, filter) {
             return [];
         }
 
-        const sortedPlayers = sortPlayers(data, filter);
+        const sortedPlayers = sortPlayers(data, filter, descending);
 
         return sortedPlayers.slice(0, top);
 

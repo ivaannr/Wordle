@@ -26,13 +26,23 @@ function sendInfo(socket, message) {
  * @param {String} filter 
  * @returns {Array<Object>} the sorted player list 
  */
-function sortPlayers(players, filter) {
-    switch (filter) {
-        case "elo": return players.sort((a, b) => Number(b.elo) - Number(a.elo));
-        case "wins": return players.sort((a, b) => Number(b.wins) - Number(a.wins));
-        case "losses": return players.sort((a, b) => Number(b.losses) - Number(a.losses));
-        case "total matches": return players.sort((a, b) => Number(Number(b.losses) + Number(b.wins)) - Number(Number(a.losses) + Number(a.wins)));
-        case "winLoseRatio": return players.sort((a, b) => Number(((b?.wins / b?.losses) * 100).toFixed()) - Number(((a?.wins / a?.losses) * 100).toFixed()));
+function sortPlayers(players, filter, descending = true) {
+    if (descending) {
+        switch (filter) {
+            case "elo": return players.sort((a, b) => Number(b.elo) - Number(a.elo));
+            case "wins": return players.sort((a, b) => Number(b.wins) - Number(a.wins));
+            case "losses": return players.sort((a, b) => Number(b.losses) - Number(a.losses));
+            case "total matches": return players.sort((a, b) => Number(Number(b.losses) + Number(b.wins)) - Number(Number(a.losses) + Number(a.wins)));
+            case "winLoseRatio": return players.sort((a, b) => Number(((b?.wins / b?.losses) * 100).toFixed()) - Number(((a?.wins / a?.losses) * 100).toFixed()));
+        }
+    } else {
+        switch (filter) {
+            case "elo": return players.sort((a, b) => Number(a.elo) - Number(b.elo));
+            case "wins": return players.sort((a, b) => Number(a.wins) - Number(b.wins));
+            case "losses": return players.sort((a, b) => Number(a.losses) - Number(b.losses));
+            case "total matches": return players.sort((a, b) => Number(Number(a.losses) + Number(a.wins)) - Number(Number(b.losses) + Number(b.wins)));
+            case "winLoseRatio": return players.sort((a, b) => Number(((a?.wins / a?.losses) * 100).toFixed()) - Number(((b?.wins / b?.losses) * 100).toFixed()));
+        }
     }
 }
 
@@ -225,14 +235,14 @@ function getMapLastIndex(map) {
     keys.sort((a, b) => a - b);
     return keys[map.size - 1];
 }
-export { 
-    fetchWord, 
-    getColor, 
-    getWordMatches, 
-    replaceAccents, 
-    createLettersData, 
-    isMatchFinished, 
-    sendInfo, 
+export {
+    fetchWord,
+    getColor,
+    getWordMatches,
+    replaceAccents,
+    createLettersData,
+    isMatchFinished,
+    sendInfo,
     parseInfo,
     compareStates,
     sortPlayers
