@@ -111,7 +111,7 @@ async function userExists(userdata) {
  */
 async function modifyUser(userID, modifyArgs) {
     //const URL = `https://wordleapi-qhp7.onrender.com/players/${userID}``;
-    console.log(userID);
+    console.table(modifyArgs);
     const URL = `http://localhost:8080/players/${userID}`;
     try {
 

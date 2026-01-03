@@ -128,8 +128,8 @@ export default function App() {
 
   useEffect(() => {
 
-    const updatePlayerLosses = async () => {
-      const newUser = await modifyUser(user.id, { losses: 1 });
+    const updatePlayerStats = async () => {
+      const newUser = await modifyUser(user.id, { losses: 1, elo: -15 });
       console.log("Fetched New User:", newUser);
       setUser(newUser);
     };
@@ -138,7 +138,7 @@ export default function App() {
 
     if (oppWord === opponentData?.wordToGuess?.toLowerCase() && oppWord) {
       console.log("LOSS");
-      updatePlayerLosses();
+      updatePlayerStats();
       setAreKeysEnabled(false);
       setHasOpponentWon(true);
     }

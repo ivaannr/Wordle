@@ -58,7 +58,6 @@ const StatsScreen = () => {
         const winLosePercentage = ((user?.wins / user?.losses) * 100).toFixed();
         const totalMatches = user?.wordsGuessed + user?.wordsMissed + user?.wins + user?.losses;
 
-
         setValues([totalMatches, user?.wins, user?.losses, user?.wordsGuessed, user?.wordsMissed, `${isNaN(winLosePercentage) ? '0' : winLosePercentage}%`]);
 
     }, [user]);

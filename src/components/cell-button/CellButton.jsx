@@ -111,9 +111,10 @@ export default function ButtonCell({
                     if (user != null) {
                         const patchUser = async () => {
                             const patchedUser = await modifyUser(user.id, {
-                                wins: 1
+                                wins: 1,
+                                elo: 15,
                             });
-                            console.log("Fetched New User:", patchedUser);
+                            console.table("New User:", { patchedUser } );
                             setUser(patchedUser);
                         };
                         patchUser();
