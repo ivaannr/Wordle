@@ -1,0 +1,40 @@
+.fileContainer {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    margin: 0 0 15px 15px;
+}
+
+.fileInput {
+    display: none;
+}
+
+.fileButton {
+    background-color: #0084ff;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px;
+    font-weight: bolder;
+    height: 7vh;
+    padding: 0 10px;
+    transition: 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fileButton:hover {
+    background-color: #1e92ff;
+    transform: scale(1.05);
+}
+
+.fileContainer img {
+    transition: 0.25s ease;
+}
+
+.fileContainer img:hover {
+    opacity: 0.8;
+    transition: 0.25s ease;
+}

@@ -2,11 +2,17 @@ import './loginForm.css'
 import { toast } from "react-toastify";
 import { registerUser, userExists } from '../../helper.fetching';
 import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { UserContext } from '../../context/UserContext';
+import PhotoInput from './photoInput/PhotoInput';
 
-const LoginForm = ({ setUser }) => {
+const LoginForm = () => {
 
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
-
+    
+    const logOut = () => setUser(null);
+    
     const handleSubmit = async (event) => {
 
         event.preventDefault();
@@ -95,10 +101,12 @@ const LoginForm = ({ setUser }) => {
                         minLength={5}
                     >
                     </textarea>
+                    <PhotoInput />
                 </div>
 
                 <div className="formRow">
-                    <button className="submit" type='submit'>Login/Register</button>
+                    <button className="submit login" type='submit'>Login/Register</button>
+                    <button className="submit logout" type='button' onClick={logOut}>Log out</button>
                 </div>
             </form>
         </div>
