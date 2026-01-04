@@ -10,6 +10,7 @@ import playIcon from '../../assets/PLAY_CIRCLE_ICON.png';
 import userUnloggedIcon from '../../assets/USER_UNLOGGED_ICON.png';
 import loggedNoPfpIcon from '../../assets/USER_LOGGED_NO_PFP_ICON.png';
 import { useNavigate } from "react-router-dom";
+import { convert64ToURL } from "../../helper";
 
 export default function Header({
     openSettingsModal,
@@ -37,8 +38,9 @@ export default function Header({
     return (
         <div id="header">
             <img
-                src={user != undefined || user != null ? user?.profilePicture ?? loggedNoPfpIcon : userUnloggedIcon}
+                src={!user ? userUnloggedIcon : (convert64ToURL(user?.profilePicture) ?? loggedNoPfpIcon)} 
                 height={50}
+                width={50}
                 className="headerImg"
                 title="Login/Register"
                 onClick={goLogin}
@@ -83,8 +85,9 @@ export const StatsHeader = ({ user }) => {
         <div id="header">
 
             <img
-                src={user != undefined || user != null ? user?.profilePicture ?? loggedNoPfpIcon : userUnloggedIcon}
+                src={!user ? userUnloggedIcon : (convert64ToURL(user?.profilePicture) ?? loggedNoPfpIcon)} 
                 height={50}
+                width={50}
                 className="headerImg"
                 title="Login/Register"
                 onClick={goLogin}

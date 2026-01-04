@@ -99,6 +99,10 @@ function getColor(state) {
     };
 }
 
+function convert64ToURL(base64, mimeType = "image/png") {
+  return `data:${mimeType};base64,${base64}`;
+};
+
 /**
  * 
  * @param {String} lang The language abbreviation (ex: "es", "en") 
@@ -245,5 +249,6 @@ export {
     sendInfo,
     parseInfo,
     compareStates,
-    sortPlayers
+    sortPlayers,
+    convert64ToURL
 }

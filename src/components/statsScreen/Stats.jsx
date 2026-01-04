@@ -4,6 +4,7 @@ import { UserContext } from '../../context/UserContext';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { SimpleTab } from '../tabs/Tabs';
+import { convert64ToURL } from '../../helper';
 import { fetchTopUsers } from '../../helper.fetching';
 import { toast } from 'react-toastify';
 import StatRow from './statRow/StatRow';
@@ -14,13 +15,17 @@ import missIcon from '../../assets/CROSS_ICON.png';
 import crownIcon from '../../assets/CROWN_ICON.png';
 import skullIcon from '../../assets/SKULL_ICON.png';
 import fav from '../../assets/favicon.png';
+import noPfp from '../../assets/USER_LOGGED_NO_PFP_ICON.png'
+import unlogged from '../../assets/USER_UNLOGGED_ICON.png'
 import UsersTable from './usersTable/UsersTable';
+import PhotoInput from '../loginForm/photoInput/PhotoInput';
 
 const StatsScreen = () => {
     const [filterDescending, setFilterDescending] = useState(true);
     const [currentFilter, setCurrentFilter] = useState("wins");
     const [numberOfPlayers, setNumberOfPlayers] = useState(5);
     const [playersData, setPlayersData] = useState([]);
+    const [file, setFile] = useState(null);
     const { user, setUser } = useContext(UserContext);
 
     const icons = [gamesIcon, crownIcon, missIcon, winIcon, skullIcon, percentIcon];
@@ -68,13 +73,18 @@ const StatsScreen = () => {
             <div className="screen">
                 <div className="profileDiv">
                     <div className="pictureBox">
-                        <img src={fav} height={250} />
+                        <img 
+                            src={!user ? unlogged : (convert64ToURL(user?.profilePicture) ?? noPfp)} 
+                            height={250}
+                            width={250}
+                        />
                     </div>
 
                     <div className="mainInfo">
                         <p>{user?.username ?? "User0123456789"}</p>
                         <p>{user?.elo ?? 1000}</p>
                     </div>
+
                 </div>
                 <div className="statsContainer">
                     <div className="topStatsDiv">

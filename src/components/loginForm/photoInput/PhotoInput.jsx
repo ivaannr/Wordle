@@ -2,8 +2,7 @@ import './PhotoInput.css'
 import profilePhoto from '../../../assets/USER_LOGGED_NO_PFP_ICON.png'
 import { useState } from "react";
 
-const PhotoInput = () => {
-    const [file, setFile] = useState(null);
+const PhotoInput = ( { file, setFile } ) => {
 
     const handleFileChange = (e) => {
         if (e.target.files.length > 0) {
@@ -23,7 +22,7 @@ const PhotoInput = () => {
             />
 
             <label htmlFor="fileInput" className="fileButton">
-                <img src={profilePhoto} height={50} />
+                <img src={file === null ? profilePhoto : URL.createObjectURL(file)} height={50} width={50} />
             </label>
         </div>
     );
