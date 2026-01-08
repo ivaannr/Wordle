@@ -11,6 +11,8 @@ import userUnloggedIcon from '../../assets/USER_UNLOGGED_ICON.png';
 import loggedNoPfpIcon from '../../assets/USER_LOGGED_NO_PFP_ICON.png';
 import { useNavigate } from "react-router-dom";
 import { convert64ToURL } from "../../helper";
+import { toast } from 'react-toastify';
+
 
 export default function Header({
     openSettingsModal,
@@ -28,6 +30,12 @@ export default function Header({
     const goLogin = () => navigate("/login");
 
     const changeMultiplayer = () => {
+        
+        // if (!user) {
+        //     toast.warn("You must login to play multiplayer.");
+        //     return;
+        // }
+
         if (!isMultiplayer) {
             enableMultiplayer();
         } else {
@@ -58,8 +66,8 @@ export default function Header({
 
                 <h1>Wordle</h1>
 
-                <button type="button" onClick={openSettingsModal}>
-                    <img src={settingsIcon} height={25} title="Game settings" />
+                <button type="button">
+                    <img src={settingsIcon} height={25} title="Soon... ⚙️" />
                 </button>
 
                 <button type="button" onClick={changeMultiplayer}>
@@ -131,7 +139,7 @@ export const LoginHeader = () => {
                 <h1>Login</h1>
 
                 <button type="button">
-                    <img src={settingsIcon} height={25} />
+                    <img src={settingsIcon} height={25} title="Soon... ⚙️" />
                 </button>
 
 

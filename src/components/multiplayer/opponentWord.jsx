@@ -8,7 +8,7 @@ export default function OppWord({ id, data, length, opponentWordIndex, previousO
 
   if (isWordActive) {
     return (
-      <div className="letter">
+      <div className="letter expanded">
         {Array.from({ length }).map((_, i) => {
           return (
             <OppCell
@@ -22,7 +22,7 @@ export default function OppWord({ id, data, length, opponentWordIndex, previousO
     );
   } else {
     return (
-      <div className="letter">
+      <div className="letter expanded">
         {Array.from({ length }).map((_, i) => {
           return (
             <OppCell

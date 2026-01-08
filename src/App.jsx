@@ -16,6 +16,7 @@ import LoginForm from './components/loginForm/loginForm'
 import Footer from './components/footer/footer'
 import { UserContext } from './context/UserContext'
 import { modifyUser } from './helper.fetching'
+import UserStatsPanel from './components/main-container/userStatsPanel/UserStatsPanel'
 
 let indexmap = new Map([
   [0, { state: "empty", letter: "" }],
@@ -305,6 +306,8 @@ export default function App() {
         previousLetters={previousLetters}
         setPreviousLetters={setPreviousLetters}
         wordCount={wordCount}
+        isMultiplayer={isMultiplayer}
+        user={user}
       />
 
       <Keyboard

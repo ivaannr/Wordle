@@ -10,3 +10,10 @@
     margin-bottom: 11%;
     margin-left: 25px;
 }
+
+.box.expanded {
+    height: 70vh;
+    margin-bottom: 0;
+    padding: 0;
+}
+

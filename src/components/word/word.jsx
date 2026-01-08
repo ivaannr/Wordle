@@ -3,14 +3,14 @@ import Cell from '../letter-cell/cell'
 import { useEffect } from 'react';
 
 export default function Word(props) {
-  const { currentWordIndex, currentLetterIndex, lettersData, letterID, previousWords, length, currentLetter, previousLetters } = props;
+  const { currentWordIndex, currentLetterIndex, lettersData, letterID, previousWords, length, currentLetter, previousLetters, isMultiplayer } = props;
   const isWordActive = letterID === currentWordIndex;
   let cellData;
 
   
 
   return (
-    <div className="letter">
+    <div className={`letter ${isMultiplayer ? 'expanded' : ''}`}>
       {Array.from({ length }).map((_, i) => {
 
         cellData = (isWordActive
