@@ -128,12 +128,38 @@ async function modifyUser(userID, modifyArgs) {
         if (!res.ok) { throw new Error(`HTTP Error: ${res.status} || User couldn't be registered.`); }
 
         const responseData = await res.json();
-         
+
         return responseData.player;
     } catch (err) {
         console.error(err);
         return null;
     }
 }
+/**
+ * Given an id retreives the correspoding player stats
+ * @param {String} id the user id
+ * @returns {Object} the user stats as an object
+ */
+async function fetchUserStats(id) {
+    const URL = `http://localhost:8080/players/data/${id}`;
 
-export { fetchTopUsers, registerUser, userExists, modifyUser }
+    try {
+        const res = await fetch(URL);
+
+        if (!res.ok) { throw new Error(`HTTP error ${res.status}`); }
+
+        const data = await res.json();
+
+        if (!Array.isArray(data)) {
+            console.warn("Not an array:", data);
+            return null;
+        }
+
+        return data[0];
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return null;
+    }
+}
+
+export { fetchTopUsers, registerUser, userExists, modifyUser, fetchUserStats }
