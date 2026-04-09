@@ -6,6 +6,8 @@ import WordToGuessModel from '../../../model/models/wordToGuess.model';
 import UtilsService from '../../../service/utils.service';
 import WordDTO from '../../../model/dtos/wordDTO';
 import { DictionaryService } from '../../../service/dictionary.service';
+import { WebsocketService } from '../../../service/websocket.service';
+import { GameInfoMessage } from '../../../model/dtos/WebSocketMessages';
 
 @Component({
   selector: 'app-game-container',
@@ -19,9 +21,11 @@ export class GameContainer {
   @Input() wordIndex: number = 0;
   @Input() letterIndex: number = 0;
   @Input() lettersToShow: string[] = [];
+  @Input() isOpponent: boolean = false;
   private readonly dictionaryService = inject(DictionaryService);
   private readonly messageService = inject(MessageService);
   private readonly utils = inject(UtilsService);
+  private readonly ws = inject(WebsocketService);
   submitDisabled: boolean = false;
   keysEnabled: boolean = true;
   userWon: boolean = false;
@@ -54,12 +58,6 @@ export class GameContainer {
     if (currentGuess === targetWord) {
       this.userWon = true;
     }
-  }
-
-  handleSubmit() {
-    this.wordIndex++;
-    this.letterIndex = 0;
-    this.lettersToShow = [];
   }
 
   allEmpty() {
@@ -125,6 +123,12 @@ export class GameContainer {
 
         this.words[this.wordIndex] = checkedWord;
         this.words = [...this.words];
+
+        this.ws.sendMessage({
+          type: 'game-info',
+          letters: checkedWord.letters,
+          wordToGuess: this.wordModel.word,
+        } as GameInfoMessage);
 
         this.updateGameStatus();
 

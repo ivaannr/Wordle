@@ -1,4 +1,4 @@
-import LetterDTO from "./letterDTO";
+import LetterDTO from './letterDTO';
 
 export default class WordDTO {
   constructor(public letters: LetterDTO[]) {}
