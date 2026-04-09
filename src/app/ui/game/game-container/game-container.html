@@ -1,0 +1,14 @@
+<p-toast [key]="'default'" />
+<p-toast [key]="'mid'" [position]="'top-center'" />
+
+<main>
+  @for (word of words; track $index) {
+    <app-word
+      [word]="word"
+      [index]="$index"
+      [wordIndex]="wordIndex"
+      [letterIndex]="letterIndex"
+      [lettersToShow]="lettersToShow"
+    />
+  }
+</main>

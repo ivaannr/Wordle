@@ -3,9 +3,17 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 
+import { providePrimeNG } from 'primeng/config';
+import Nora from '@primeuix/themes/nora';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
-  ]
+    provideRouter(routes),
+    providePrimeNG({
+      theme: {
+        preset: Nora,
+      },
+    }),
+  ],
 };
