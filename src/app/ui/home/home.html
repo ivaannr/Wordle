@@ -4,11 +4,10 @@
   <div class="game-container-parent">
     <app-game-container [words]="words" />
 
-    <app-game-container
+    <app-opponent-container
       *ngIf="isMultiplayer()"
       [words]="opponentWords"
       [wordIndex]="opponentWordIndex"
-      [isOpponent]="true"
     />
   </div>
 </div>

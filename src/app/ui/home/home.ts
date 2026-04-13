@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, signal, WritableSignal } from '@angular/core';
 import { GameContainer } from '../game/game-container/game-container';
 import { Header } from '../header/header';
 import { NgIf } from '@angular/common';
@@ -8,10 +8,11 @@ import WordDTO from '../../model/dtos/wordDTO';
 import { WebsocketService } from '../../service/websocket.service';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { GameInfoMessage, Message } from '../../model/dtos/WebSocketMessages';
+import { OpponentContainer } from "../game/opponent-container/opponent-container";
 
 @Component({
   selector: 'app-home',
-  imports: [Header, GameContainer, NgIf],
+  imports: [Header, GameContainer, NgIf, OpponentContainer],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -24,11 +25,12 @@ export class Home {
   letterToShow: string[] = ['', '', '', '', ''];
   isMultiplayer: WritableSignal<boolean> = signal(false);
   isMultiplayerSignal = toObservable(this.isMultiplayer);
+  processingWebsocketMessage: boolean = false;
 
   opponentWords: WordDTO[] = WordDTO.emptyArray();
   opponentWordIndex: number = 0;
 
-  constructor(private userModel: UserModel) {
+  constructor(private userModel: UserModel, private cd: ChangeDetectorRef) {
     this.ws.connect();
   }
 
@@ -58,6 +60,7 @@ export class Home {
   }
 
   handleReceivedMessage(msg: any) {
+    this.processingWebsocketMessage = true;
     switch (msg.type) {
       case 'game-info':
         const typedMessage = msg as GameInfoMessage;
@@ -65,5 +68,8 @@ export class Home {
         this.opponentWordIndex++;
         break;
     }
+    this.processingWebsocketMessage = false;
+    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

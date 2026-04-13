@@ -1,0 +1,62 @@
+main {
+  border-radius: 12px;
+  width: 30vw;
+  height: 55vh;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1vh;
+}
+
+:host {
+  ::ng-deep {
+    .p-toast {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      top: 2rem !important;
+      right: 2rem !important;
+    }
+
+    .p-toast-message {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      width: 25rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    }
+
+    .p-toast-message-icon {
+      flex-shrink: 0;
+      transform: scale(1.75);
+    }
+
+    .p-toast-message-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .p-toast-summary {
+      margin: 0;
+      padding: 0;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .p-toast-detail {
+      margin: 0;
+      padding: 0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    .p-toast-close-button {
+      display: none;
+    }
+  }
+}
